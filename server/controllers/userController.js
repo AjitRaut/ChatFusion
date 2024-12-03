@@ -50,4 +50,16 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+const getProfile = async (req ,res) => {
+try {
+  const user = await User.findById(req.params.id);
+  if(!user){
+    res.status(404).json({msg : "user Not found"})
+  }
+} catch (error) {
+  
+}
+  
+}
+
+module.exports = { register, login , getProfile};

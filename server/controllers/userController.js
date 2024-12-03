@@ -5,7 +5,7 @@ const register = async (req, res) => {
   const { username, email, password } = req.body;
   try {
     if (!username || !email || !password) {
-      res.status(404).json("Plaease Fill All Filds Mandatory");
+      res.status(400).json("Please Fill All Fields Mandatory");
     }
     const existingEmail = await User.findOne({ email });
 
@@ -24,7 +24,7 @@ const register = async (req, res) => {
       expiresIn: "30d",
     });
 
-    res.json({ msg: "welcome", userdata, token });
+    res.json({ msg: "welcome", user, token });
   } catch (error) {
     res.status(500).json({ msg: "Server Error" });
   }
@@ -50,16 +50,16 @@ const login = async (req, res) => {
   }
 };
 
-const getProfile = async (req ,res) => {
-try {
-  const user = await User.findById(req.params.id);
-  if(!user){
-    res.status(404).json({msg : "user Not found"})
+const getProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      res.status(404).json({ msg: "User Not Found" });
+    }
+    res.status(200).json(user)
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
   }
-} catch (error) {
-  
-}
-  
-}
+};
 
-module.exports = { register, login , getProfile};
+module.exports = { register, login, getProfile };

@@ -24,8 +24,9 @@ const register = async (req, res) => {
       expiresIn: "30d",
     });
 
-    res.json({ msg: "welcome", user, token });
+    res.status(200).json({ token });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ msg: "Server Error" });
   }
 };
@@ -56,7 +57,7 @@ const getProfile = async (req, res) => {
     if (!user) {
       res.status(404).json({ msg: "User Not Found" });
     }
-    res.status(200).json(user)
+    res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }

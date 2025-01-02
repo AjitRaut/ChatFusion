@@ -2,10 +2,19 @@ const mongoose = require("mongoose");
 
 const ChatRoomSchema = new mongoose.Schema(
   {
-    name: { type: String },
-    isGroup: { type: Boolean, default: false },
-    members: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    admin: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+    participants: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    messages: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Message",
+        default: [],
+      },
+    ],
   },
   { timestamps: true }
 );
